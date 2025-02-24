@@ -65,63 +65,24 @@ int main(int argc, char *argv[]) {
         "Make a song about being a thinkpad nerd running arch linux "
         "alongside a split ergo keyboard and a crazy good IEM";
 
-    // get focused window
-    sleep(5); // sleep because browser takes time to load
-    int revert_to;
-    Window focused_window;
-    XGetInputFocus(display, &focused_window, &revert_to);
-    if (focused_window == None) {
-        fprintf(stderr, "No window has focus!\n");
-        return 1;
-    }
-    XSetInputFocus(display, focused_window, RevertToParent, CurrentTime);
+    // delay so that the browser window can open
+    sleep(5);
 
-    // write the text
+    // enter text
     for (int i = 0; i < strlen(prompt); i++) {
-
-        KeySym key_sym;
         KeyCode key_code;
-
         if (prompt[i] == ' ') {
             key_code = XKeysymToKeycode(display, XK_space);
         } else {
-            char *key_str = malloc(sizeof(char) * 2);
-            sprintf(key_str, "%c", prompt[i]);
-            key_sym = XStringToKeysym(key_str);
-            key_code = XKeysymToKeycode(display, key_sym);
+            char *key_code_str = malloc(sizeof(char));
+            sprintf(key_code_str, "%c", prompt[i]);
+            key_code = XKeysymToKeycode(display, XStringToKeysym(key_code_str));
         }
-        if (key_code == 0) {
-            fprintf(stderr, "Could not get key code!");
-            return 1;
-        }
-
-        XEvent event;
-
-        /* EVENT CONFIG */
-        event.type = KeyPress;
-        event.xkey.window = focused_window;
-        event.xkey.root = root_window;
-        event.xkey.subwindow = None;
-        event.xkey.time = CurrentTime;
-        event.xkey.x = 1;
-        event.xkey.y = 1;
-        event.xkey.x_root = 1;
-        event.xkey.y_root = 1;
-        event.xkey.state = 0;
-        event.xkey.keycode = key_code;
-        event.xkey.same_screen = True;
-
-        XSendEvent(display, focused_window, True, KeyPressMask, &event);
-
-        // release key
-        event.type = KeyRelease;
-        XSendEvent(display, focused_window, True, KeyReleaseMask, &event);
-
+        XTestFakeKeyEvent(display, key_code, True, CurrentTime);
         XFlush(display);
-        sleep(0.01);
+        XTestFakeKeyEvent(display, key_code, False, CurrentTime);
+        XFlush(display);
     }
-
-    // Enter text
 
     /* CLEANUP */
     XCloseDisplay(display);
