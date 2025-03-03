@@ -9,6 +9,7 @@
 #include <unistd.h>
 
 char *check_browser();
+void key_press(Display *display, KeyCode key_code);
 
 int main(int argc, char *argv[]) {
 
@@ -31,21 +32,8 @@ int main(int argc, char *argv[]) {
     /* XWarpPointer(display, None, root_window, 0, 0, 0, 0, 200, 200); */
     /* XFlush(display); */
 
-    /* /1* Key Press *1/ */
-    /* KeyCode key_windows = XKeysymToKeycode(display, XK_Super_L); */
-    /* KeyCode key_2 = XKeysymToKeycode(display, XK_2); */
-
-    /* XTestFakeKeyEvent(display, key_windows, True, CurrentTime); */
-    /* XTestFakeKeyEvent(display, key_2, True, CurrentTime); */
-    /* XFlush(display); */
-
-    /* sleep(0.1); */
-
-    /* XTestFakeKeyEvent(display, key_2, False, CurrentTime); */
-    /* XTestFakeKeyEvent(display, key_windows, False, CurrentTime); */
-    /* XFlush(display); */
-
     /* ---- Open Browser ---- */
+    // ensure that you are already logged in to udio
     char *default_browser = check_browser();
     printf("%s", default_browser);
 
@@ -60,13 +48,10 @@ int main(int argc, char *argv[]) {
 
     /* ---- Prompt Input ---- */
 
-    /* char *prompt = argv[1]; */
-    char prompt[] =
-        "Make a song about being a thinkpad nerd running arch linux "
-        "alongside a split ergo keyboard and a crazy good IEM";
+    char *prompt = argv[1];
 
     // delay so that the browser window can open
-    sleep(5);
+    sleep(7);
 
     // enter text
     for (int i = 0; i < strlen(prompt); i++) {
@@ -78,11 +63,72 @@ int main(int argc, char *argv[]) {
             sprintf(key_code_str, "%c", prompt[i]);
             key_code = XKeysymToKeycode(display, XStringToKeysym(key_code_str));
         }
-        XTestFakeKeyEvent(display, key_code, True, CurrentTime);
-        XFlush(display);
-        XTestFakeKeyEvent(display, key_code, False, CurrentTime);
-        XFlush(display);
+
+        key_press(display, key_code);
     }
+
+    /* NOTE:
+     * this is hardcoded for udio only
+     * as of now, we can press 7 tabs to go from input text box to submit button
+     */
+    for (int i = 0; i < 7; i++) {
+        KeyCode key_code = XKeysymToKeycode(display, XK_Tab);
+        key_press(display, key_code);
+    }
+    // facing some issue with the quick click
+    sleep(1);
+    // click the submit button
+    key_press(display, XKeysymToKeycode(display, XK_Return));
+
+    /* ---- Download the song ---- */
+
+    sleep(65);
+    /* system("notify-send 'Hover over the three dots!'"); */
+    /* system("notify-send '3'"); */
+    /* sleep(1); */
+    /* system("notify-send '2'"); */
+    /* sleep(1); */
+    /* system("notify-send '1'"); */
+    /* sleep(1); */
+    /* int root_x, root_y, win_x, win_y; */
+    /* unsigned int mask; */
+    /* Window root_return, child_return; */
+    /* XQueryPointer(display, root_window, &root_return, &child_return, &root_x,
+     */
+    /*               &root_y, &win_x, &win_y, &mask); */
+    /* system("notify-send 'Mouse position captured!'"); */
+    /* printf("Mouse X: %d, Mouse Y: %d\n", root_x, root_y); */
+    // focus the three dots
+    /* for (int i = 0; i < 24; i++) { */
+    /*     KeyCode key_code = XKeysymToKeycode(display, XK_Tab); */
+    /*     key_press(display, key_code); */
+    /*     sleep(0.2); */
+    /* } */
+    /* // click on the three dots */
+    /* key_press(display, XKeysymToKeycode(display, XK_Return)); */
+
+    XWarpPointer(display, None, root_window, 0, 0, 0, 0, 1871, 300);
+    XTestFakeButtonEvent(display, Button1, True, CurrentTime);
+    XTestFakeButtonEvent(display, Button1, False, CurrentTime);
+    XFlush(display);
+
+    sleep(1);
+    // focus download option
+    for (int i = 0; i < 7; i++) {
+        KeyCode key_code = XKeysymToKeycode(display, XK_Down);
+        key_press(display, key_code);
+        sleep(3);
+    }
+    sleep(1);
+    // click the download option
+    key_press(display, XKeysymToKeycode(display, XK_Return));
+    sleep(1);
+    // focus the mp3 option
+    key_press(display, XKeysymToKeycode(display, XK_Down));
+    sleep(1);
+    // click the mp3 option
+    key_press(display, XKeysymToKeycode(display, XK_Return));
+    sleep(1);
 
     /* CLEANUP */
     XCloseDisplay(display);
@@ -118,4 +164,11 @@ char *check_browser() {
     }
 
     return browser;
+}
+
+void key_press(Display *display, KeyCode key_code) {
+    XTestFakeKeyEvent(display, key_code, True, CurrentTime);
+    XFlush(display);
+    XTestFakeKeyEvent(display, key_code, False, CurrentTime);
+    XFlush(display);
 }
