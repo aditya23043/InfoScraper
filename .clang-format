@@ -1,2 +1,5 @@
-IndentWidth: 4
-CommentPragmas: ["//", "/*", "*", "!"]
+{ 
+  "Language": "C",
+  "IndentWidth": 4, 
+  "CommentPragmas": ["//", "/*", "*", "!"] 
+}
