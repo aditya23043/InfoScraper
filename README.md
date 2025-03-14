@@ -6,14 +6,19 @@
 
 - Main Objective: Automating extracting data from websites
 - Note that for this automation, you need a dedicated system since I will be using this program on websites which have a paid API
-
 - Most websites have a limit on the requests we can send per day per account so I will be using https://temp-mail.org for making new accounts
 - They have a free API called RapidAPI which lets us send 100 reqs per day which is more than enough for our use case
 - So, I will be using temp-mail to generate new accounts once limit has been reached on the current account
-
 - For now, I am targeting www.udio.com
 
 ## 2025-03-04 14:52
 
 - udio has added a captcha in order to prevent automation and guess what? its working. I am not able to bypass it
 - Hence, I am changing my target from udio to suno ai for now
+
+## 2025-03-05 15:03
+
+- completed the script for automating downloading ai generated songs from suno ai
+- optionally, you could install `dunst` on your system to see the timer countdowns
+
+> NOTE: disable "Always ask you where to save files" in your browser so that the browser wont prompt you to provide download path every time it downloads the songs
