@@ -1,5 +1,27 @@
 > I am being forced to use python (which is not even a real programming language) since it provides a good abstraction layer over HID control /s
 
+# How to use?
+
+- Build it yourself
+- Go in the root directory of the repo and run either of these commands
+
+```
+make
+```
+
+- OR
+
+```
+gcc -Wall src/main.c -o bin/main -lX11 -lXtst
+
+```
+
+- Then run the binary
+
+```
+./bin/main <song prompt>
+```
+
 # Dev Log
 
 ## 2025-02-12 19:08
