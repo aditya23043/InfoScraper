@@ -1,0 +1,11 @@
+{
+  "name": "InfoScraper",
+  "version": "1.0.0",
+  "description": "Web scraper specifically for extracting audio from AI generated audio websites",
+  "main": "index.js",
+  "author": "Aditya Gautam",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "puppeteer": "^24.4.0"
+  }
+}

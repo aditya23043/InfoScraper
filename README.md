@@ -11,7 +11,6 @@ make
 
 ```
 gcc -Wall src/main.c -o bin/main -lX11 -lXtst
-
 ```
 
 - Then run the binary
@@ -51,4 +50,4 @@ gcc -Wall src/main.c -o bin/main -lX11 -lXtst
   - hard-coded values for time countdowns are either way too long for good performing machines (time wastage) or way too short (completely breaks down the script) for low performing machines
   - On some systems, I just cant seem to bring focus on the buttons which needs focus due to unknown reasons
   - The script is very performant but not at all flexible to work on "all" systems
-- I might be switching over to the dreadful language of all time, JavaScript (with PlayWrite framework) because of its great abstraction over web utilities which aid immensely for web automation
+- I might be switching over to the dreadful language of all time, JavaScript (with Puppeteer framework) because of its great abstraction over web utilities which aid immensely for web automation
