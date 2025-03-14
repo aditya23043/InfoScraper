@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
   printf("%s", browser_command);
   system(browser_command);
 
-  sleep_notify(10, "Opening browser...");
+  sleep_notify(20, "Opening browser...");
 
   // focusing on text box
   for (int i = 0; i < 22; i++) { /* NOTE hardcoded value */
@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
   key_press(display, XKeysymToKeycode(display, XK_Return));
 
   // wait for song to generate
-  sleep_notify(40, "Generating song...");
+  sleep_notify(60, "Generating song...");
 
   // focus on three dot for downloading song
   for (int i = 0; i < 18; i++) { /* NOTE hardcoded value */
