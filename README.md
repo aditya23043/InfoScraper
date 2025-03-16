@@ -4,6 +4,7 @@
 
 <summary>Old Instructions for C</summary>
 
+
 - Build it yourself
 - Go in the root directory of the repo and run either of these commands
 
@@ -23,7 +24,22 @@ gcc -Wall src/main.c -o bin/main -lX11 -lXtst
 ./bin/main <song prompt>
 ```
 
-<details>
+</details>
+
+## Basic Setup
+  - I have a `makefile` setup such that automatically installs puppeteer and the required firefox binary in your $CACHE directory (~/.cache for Linux) whenever you run this cmd...
+
+```
+make
+```
+
+## Run The Program
+  - This cmd runs `yarn run main`
+
+```
+make run
+```
+
 
 # Dev Log
 
