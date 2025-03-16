@@ -1,0 +1,5 @@
+{ 
+  "Language": "C",
+  "IndentWidth": 4, 
+  "CommentPragmas": ["//", "/*", "*", "!"] 
+}
