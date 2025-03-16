@@ -34,10 +34,16 @@ make
 ```
 
 ## Run The Program
-  - This cmd runs `yarn run main`
+  - This cmd runs `node src/index.js`
 
 ```
 make run
+```
+
+- OR 
+
+```
+yarn run main
 ```
 
 
