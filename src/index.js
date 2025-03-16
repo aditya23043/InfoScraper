@@ -9,7 +9,7 @@ const main = async () => {
     args: [
       // "--disable-notifications",
       // "--disable-features=BlockThirdPartyCookies",
-      "--profile ~/.mozilla/firefox/uqt3lbms.default-release/"
+      // "--profile ~/.mozilla/firefox/uqt3lbms.default-release/"
     ],
   });
 

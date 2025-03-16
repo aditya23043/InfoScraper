@@ -1,5 +1,9 @@
 # How to use?
 
+<details>
+
+<summary>Old Instructions for C</summary>
+
 - Build it yourself
 - Go in the root directory of the repo and run either of these commands
 
@@ -18,6 +22,8 @@ gcc -Wall src/main.c -o bin/main -lX11 -lXtst
 ```
 ./bin/main <song prompt>
 ```
+
+<details>
 
 # Dev Log
 
