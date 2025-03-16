@@ -33,6 +33,14 @@ gcc -Wall src/main.c -o bin/main -lX11 -lXtst
 make
 ```
 
+## Important NOTE
+- This script utilizes the Firefox browser and will automatically download the binary and required files into cache
+- I am assuming that you are already logged into https://suno.com and hence we need to maintain the cookies in the puppeteer instance of firefox as well
+- In order to do that, we have to pass the User data directory that firefox generates into `src/index.js` on line 9.
+- I have provided the sample directory name for your reference.
+- Do make sure that you change that to your directory before running the program
+- In order to prevent file locking, close all other firefox instances
+
 ## Run The Program
   - This cmd runs `node src/index.js`
 
@@ -45,7 +53,6 @@ make run
 ```
 yarn run main
 ```
-
 
 # Dev Log
 
@@ -79,3 +86,8 @@ yarn run main
   - On some systems, I just cant seem to bring focus on the buttons which needs focus due to unknown reasons
   - The script is very performant but not at all flexible to work on "all" systems
 - I might be switching over to the dreadful language of all time, JavaScript (with Puppeteer framework) because of its great abstraction over web utilities which aid immensely for web automation
+
+## 2025-03-16 23:00
+- While trying to figure out how to detect when generated audio is ready for download, I have noticed that https://suno.com is now asking for captcha when trying to generate the song
+- So, suno.com is also now out of the options along with udio.com
+- A major advancement made was shifting from C to JS (with puppeteer) since it makes the program very flexible and easy for web automation
