@@ -7,6 +7,7 @@ const main = async () => {
     headless: false,
     browser: "firefox",
     // userDataDir: '/home/adi/.mozilla/firefox/lyh5xzgn.default-release'
+    userDataDir: '/home/adi/.mozilla/firefox/uqt3lbms.default-release'
   });
 
   const page = (await browser.pages()).at(0);
