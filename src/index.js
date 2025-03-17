@@ -6,7 +6,7 @@ const main = async () => {
   const browser = await puppeteer.launch({
     headless: false,
     browser: "firefox",
-    userDataDir: '/home/adi/.mozilla/firefox/lyh5xzgn.default-release'
+    // userDataDir: '/home/adi/.mozilla/firefox/lyh5xzgn.default-release'
   });
 
   const page = (await browser.pages()).at(0);
