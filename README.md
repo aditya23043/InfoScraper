@@ -117,4 +117,4 @@ yarn run main
 https://github.com/user-attachments/assets/2f7f1db7-16e5-4250-9065-c668ea8a89af
 
 
-
+- I am able to hit the download button and go back to the text prompt in order to generate more songs but the actual download time is quite high (about ~100s)
