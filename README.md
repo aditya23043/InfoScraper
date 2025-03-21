@@ -113,3 +113,8 @@ yarn run main
 - I would have really preferred writing the script in C but that would mean I will have to use some library to manipulate HID like Xlib. But the problem with that approach is that Xlib only works for X11 display manager obviously but 2 people in our group run Windows as their primary Operating system and since Windows does not run X11 as its display manager, my script won't work for them
 - So unfortunately, I will have to move to a language which I don't even consider a programming language, Python
 
+
+https://github.com/user-attachments/assets/2f7f1db7-16e5-4250-9065-c668ea8a89af
+
+
+
