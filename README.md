@@ -108,3 +108,8 @@ yarn run main
 - However, I was able to generate the song without any captcha if I did all the steps manually
 - So, I concluded that the website must be able to track that I am running a script somehow
 - To try to solve this issue, I will be going back with the previous method and try to manipulate HID (keyboard and mouse) to get the final result using C
+
+### Update 2: 
+- I would have really preferred writing the script in C but that would mean I will have to use some library to manipulate HID like Xlib. But the problem with that approach is that Xlib only works for X11 display manager obviously but 2 people in our group run Windows as their primary Operating system and since Windows does not run X11 as its display manager, my script won't work for them
+- So unfortunately, I will have to move to a language which I don't even consider a programming language, Python
+
