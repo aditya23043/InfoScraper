@@ -1,4 +1,8 @@
 import puppeteer from "puppeteer";
+// import puppeteer from "puppeteer-extra";
+// import StealthPlugin from "puppeteer-extra-plugin-stealth";
+
+// puppeteer.use(StealthPlugin());
 
 const url = "https://suno.com/create";
 
@@ -6,20 +10,25 @@ const main = async () => {
   const browser = await puppeteer.launch({
     headless: false,
     browser: "firefox",
-    userDataDir: '/home/adi/.mozilla/firefox/lyh5xzgn.default-release' // asus v241 aio
-    // userDataDir: '/home/adi/.mozilla/firefox/uqt3lbms.default-release' // asus tuf a15
+    // executablePath: "/usr/lib/chromium/chromium",
+    // userDataDir: '/home/adi/.mozilla/firefox/lyh5xzgn.default-release' // asus v241 aio
+    userDataDir: '/home/adi/.mozilla/firefox/uqt3lbms.default-release' // asus tuf a15
+    // userDataDir: '/home/adi/.config/chromium/',
   });
 
   const page = (await browser.pages()).at(0);
+  // const page = await browser.newPage();
   await page.goto(url);
 
+  const text = "write a song about mechanical keyboards and lenovo Thinkpads"
   await page.waitForSelector("textarea.custom-textarea");
-  await page.type(
-    "textarea.custom-textarea",
-    "write a song about mechanical keyboards and lenovo Thinkpads"
-  );
+  for (const char of text) {
+    await page.type("textarea.custom-textarea", char);
+    await new Promise((resolve) => setTimeout(resolve, 50));
+  }
 
   await page.waitForSelector('button[aria-label="Create"]');
+  await new Promise((resolve) => setTimeout(resolve, 500));
   await page.click('button[aria-label="Create"]');
 
   try {
@@ -28,7 +37,7 @@ const main = async () => {
       return document.querySelector('iframe[title="Main content of the hCaptcha challenge"]') !== null;
     }, {timeout: 5000});
 
-    // await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log("Captcha found!");
 
   } catch (error) {
