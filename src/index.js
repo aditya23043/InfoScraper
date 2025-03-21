@@ -11,8 +11,8 @@ const main = async () => {
     headless: false,
     browser: "firefox",
     // executablePath: "/usr/lib/chromium/chromium",
-    // userDataDir: '/home/adi/.mozilla/firefox/lyh5xzgn.default-release' // asus v241 aio
-    userDataDir: '/home/adi/.mozilla/firefox/uqt3lbms.default-release' // asus tuf a15
+    userDataDir: '/home/adi/.mozilla/firefox/lyh5xzgn.default-release' // asus v241 aio
+    // userDataDir: '/home/adi/.mozilla/firefox/uqt3lbms.default-release' // asus tuf a15
     // userDataDir: '/home/adi/.config/chromium/',
   });
 
@@ -22,13 +22,14 @@ const main = async () => {
 
   const text = "write a song about mechanical keyboards and lenovo Thinkpads"
   await page.waitForSelector("textarea.custom-textarea");
-  for (const char of text) {
-    await page.type("textarea.custom-textarea", char);
-    await new Promise((resolve) => setTimeout(resolve, 50));
-  }
+  await page.type("textarea.custom-textarea", text);
+  // for (const char of text) {
+  //   await page.type("textarea.custom-textarea", char);
+  //   await new Promise((resolve) => setTimeout(resolve, 50));
+  // }
 
   await page.waitForSelector('button[aria-label="Create"]');
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  // await new Promise((resolve) => setTimeout(resolve, 500));
   await page.click('button[aria-label="Create"]');
 
   try {

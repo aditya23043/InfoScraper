@@ -88,6 +88,23 @@ yarn run main
 - I might be switching over to the dreadful language of all time, JavaScript (with Puppeteer framework) because of its great abstraction over web utilities which aid immensely for web automation
 
 ## 2025-03-16 23:00
+
 - While trying to figure out how to detect when generated audio is ready for download, I have noticed that https://suno.com is now asking for captcha when trying to generate the song
 - So, suno.com is also now out of the options along with udio.com
 - A major advancement made was shifting from C to JS (with puppeteer) since it makes the program very flexible and easy for web automation
+
+## 2025-03-21 17:57
+
+- I was able to do the following with the Puppeteer JS framework with ease...
+  - Open up firefox/chrome/chromium browser
+  - Wait till it has properly opened
+  - Go to a specific website (suno.com) in our case and again, wait only the required time to load the webpage
+  - Detect the textbox and enter text into it and then click the submit button without the need to hardcode any values
+  - Detect when the loader spin document element goes out of the DOM so that we can download the songs
+  - Detect any Captcha popups
+- But the problem I faced with this method was that even though I was initially able to generate the songs, after some tries, the website might have put a stronger bot tracker on my IP or something because of which I started getting a captcha every single time
+- To conquer this, I tried to load the Stealth plugin of the Puppeteer framework alongside adding a little bit of delay when typing each character and clicking the generate button to try to deceive the bot tracker but even that did not work
+- I even tried to run the script through a headless browser but that method failed as well
+- However, I was able to generate the song without any captcha if I did all the steps manually
+- So, I concluded that the website must be able to track that I am running a script somehow
+- To try to solve this issue, I will be going back with the previous method and try to manipulate HID (keyboard and mouse) to get the final result using C
