@@ -4,7 +4,6 @@
 
 <summary>Old Instructions for C</summary>
 
-
 - Build it yourself
 - Go in the root directory of the repo and run either of these commands
 
@@ -27,13 +26,15 @@ gcc -Wall src/main.c -o bin/main -lX11 -lXtst
 </details>
 
 ## Basic Setup
-  - I have a `makefile` setup such that automatically installs puppeteer and the required firefox binary in your $CACHE directory (~/.cache for Linux) whenever you run this cmd...
+
+- I have a `makefile` setup such that automatically installs puppeteer and the required firefox binary in your $CACHE directory (~/.cache for Linux) whenever you run this cmd...
 
 ```
 make
 ```
 
 ## Important NOTE
+
 - This script utilizes the Firefox browser and will automatically download the binary and required files into cache
 - I am assuming that you are already logged into https://suno.com and hence we need to maintain the cookies in the puppeteer instance of firefox as well
 - In order to do that, we have to pass the User data directory that firefox generates into `src/index.js` on line 9.
@@ -42,13 +43,14 @@ make
 - In order to prevent file locking, close all other firefox instances
 
 ## Run The Program
-  - This cmd runs `node src/index.js`
+
+- This cmd runs `node src/index.js`
 
 ```
 make run
 ```
 
-- OR 
+- OR
 
 ```
 yarn run main
@@ -109,12 +111,17 @@ yarn run main
 - So, I concluded that the website must be able to track that I am running a script somehow
 - To try to solve this issue, I will be going back with the previous method and try to manipulate HID (keyboard and mouse) to get the final result using C
 
-### Update 2: 
+### Update 2:
+
 - I would have really preferred writing the script in C but that would mean I will have to use some library to manipulate HID like Xlib. But the problem with that approach is that Xlib only works for X11 display manager obviously but 2 people in our group run Windows as their primary Operating system and since Windows does not run X11 as its display manager, my script won't work for them
 - So unfortunately, I will have to move to a language which I don't even consider a programming language, Python
 
-
 https://github.com/user-attachments/assets/2f7f1db7-16e5-4250-9065-c668ea8a89af
 
-
 - I am able to hit the download button and go back to the text prompt in order to generate more songs but the actual download time is quite high (about ~100s)
+
+## 2025-03-22 19:30
+
+- https://suno.com was giving captcha with puppeteer and hardcoding mouse positions with python (and pyautogui) was fine but would not work on everyone's system out of the box without any configuration
+- Hence, we shifted to https://riffusion.com which currently has no limits and does not give a captcha even with Puppeteer
+- And as always, I am writing the development log after the event had occurred, so, the JS script is ready
