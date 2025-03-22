@@ -25,36 +25,51 @@ gcc -Wall src/main.c -o bin/main -lX11 -lXtst
 
 </details>
 
+<details>
+<summary>Simple Note</summary>
+
+- This script utilizes the Firefox browser and will automatically download the binary and required files into cache (Linux: /home/<username>/.cache)
+- I am assuming that you are already logged into https://suno.com or https://riffusion.com and hence we need to maintain the cookies in the puppeteer instance of firefox as well
+- Since puppeteer always opens a new temporary profile, we have to pass the User data directory that firefox generates into `src/main.js`
+- I have provided the sample directory name for your reference.
+- Do make sure that you change that to your directory before running the program
+- Furthermore, In order to prevent file locking, close all other firefox instances
+</details>
+
 ## Basic Setup
 
-- I have a `makefile` setup such that automatically installs puppeteer and the required firefox binary in your $CACHE directory (~/.cache for Linux) whenever you run this cmd...
+- Add Puppeteer and download suitable firefox binary
 
 ```
 make
 ```
 
-## Important NOTE
-
-- This script utilizes the Firefox browser and will automatically download the binary and required files into cache
-- I am assuming that you are already logged into https://suno.com and hence we need to maintain the cookies in the puppeteer instance of firefox as well
-- In order to do that, we have to pass the User data directory that firefox generates into `src/index.js` on line 9.
-- I have provided the sample directory name for your reference.
-- Do make sure that you change that to your directory before running the program
-- In order to prevent file locking, close all other firefox instances
-
-## Run The Program
-
-- This cmd runs `node src/index.js`
-
-```
-make run
-```
-
 - OR
 
 ```
-yarn run main
+yarn add puppeteer
+npx puppeteer browsers install firefox
 ```
+
+- Put your user data directory for Firefox in `src/main.js` at line 59: `userDataDir: <path>`
+
+  - For Windows: `userDataDir: "C:\Users\<username>\AppData\Roaming\Mozilla\Firefox\Profiles\*.default-release"`
+  - For Linux: `userDataDir: "/home/<username>/.mozilla/firefox/*.default-release"`
+  - If you are not able to find your directory, just type `about:profiles` in Firefox's search bar and see the path given as Root Directory
+
+- Ensure you are logged in to the respective AI song generator in Firefox
+- Ensure that you have unchecked this option in firefox's settings `Always ask you where to save files` so that firefox doesn't prompt you everytime the script downloads the song
+- Close all other instances of firefox
+
+### Dependencies
+
+- `npm` (package name: nodejs)
+- `yarn`
+- `make` (optional)
+
+## Run The Program
+
+`node src/main.js </path/to/prompts>`
 
 # Dev Log
 
@@ -125,3 +140,9 @@ https://github.com/user-attachments/assets/2f7f1db7-16e5-4250-9065-c668ea8a89af
 - https://suno.com was giving captcha with puppeteer and hardcoding mouse positions with python (and pyautogui) was fine but would not work on everyone's system out of the box without any configuration
 - Hence, we shifted to https://riffusion.com which currently has no limits and does not give a captcha even with Puppeteer
 - And as always, I am writing the development log after the event had occurred, so, the JS script is ready
+
+## 2025-03-22 23:06
+
+- The JS script is working as intended and as required, it is picking up the prompts from a separate file which contains newline separated prompts
+- Problem: riffusion sometimes blocks the request due to high traffic and since my script does not account for that, it continues to download the top 2 prompts (which in this case would already have been downloaded since no new songs could be generated) and proceeds to the next prompt
+  - To solve this issue, I must keep track of the songs downloaded and retry generating the prompt until the song is downloaded and until we reach a threshold amount of tries (to prevent infinite loop of trying to generate from prompts which cant generate a song)

@@ -1,15 +1,7 @@
 import puppeteer from "puppeteer";
+import fs from "fs"
 
-const main = async (text) => {
-
-  const browser = await puppeteer.launch({
-    browser: "firefox",
-    headless: false,
-    userDataDir: "/home/adi/.mozilla/firefox/uqt3lbms.default-release",
-  });
-
-  const page = (await browser.pages()).at(0);
-  await page.goto("https://riffusion.com");
+const main = async (page, text) => {
 
   await page.waitForSelector('div.flex.h-12.w-full.min-w-0.cursor-pointer.items-center.gap-1');
   await page.click('div.flex.h-12.w-full.min-w-0.cursor-pointer.items-center.gap-1');
@@ -32,7 +24,7 @@ const main = async (text) => {
   await page.waitForFunction(() => {
     const h4Elements = Array.from(document.querySelectorAll('h4'));
     return h4Elements.every(h4 => !h4.textContent.trim().startsWith('Generating'));
-  }, {timeout: 60000});
+  }, {timeout: 100000});
 
   // wait for atleast one "three dots" button to load
   await page.waitForSelector('button[aria-label^="More options for"]')
@@ -56,7 +48,37 @@ const main = async (text) => {
 
   await page.waitForSelector('svg[aria-hidden="true"][data-icon="file-music"]');
   await page.click('svg[aria-hidden="true"][data-icon="file-music"]');
+
 }
 
-main("generate a song about the expensive PayTM stocks");
+const init = async (prompts) => {
 
+  const browser = await puppeteer.launch({
+    browser: "firefox",
+    headless: false,
+    userDataDir: "/home/adi/.mozilla/firefox/uqt3lbms.default-release",
+  });
+
+  const page = (await browser.pages()).at(0);
+  await page.goto("https://riffusion.com");
+
+  for (const line in prompts) {
+    await main(page, prompts.at(line));
+    console.log(`Downloaded: ${prompts.at(line)}`)
+  }
+}
+
+// checking args
+if (process.argv.length != 3) {
+  console.error("ERROR!\nUsage: node src/main.js <path/to/prompts>")
+  process.exit(1)
+}
+
+// parsing through the prompts file
+fs.readFile(process.argv[2], 'utf-8', (err, data) => {
+  if (err) {
+    console.log(err);
+  } else {
+    init(data.trim().split("\n"))
+  }
+});
