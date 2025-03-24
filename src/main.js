@@ -43,7 +43,8 @@ const main = async (page, text) => {
     return;
   }
 
-  fs.appendFile("src/output", `Prompt: ${text}\n  Song 1: ${h4_arr.at(0)}\n  Song 2: ${h4_arr.at(1)}\n\n`, (err) => {
+  const datetime = new Date(Date.now());
+  fs.appendFile("src/output", `Prompt: ${text}\t(${datetime.getDate()}/${datetime.getUTCMonth()+1}/${datetime.getFullYear()} | ${datetime.getHours()}:${datetime.getMinutes()}:${datetime.getSeconds()})\n  Song 1: ${h4_arr.at(0)}\n  Song 2: ${h4_arr.at(1)}\n\n`, (err) => {
     if (err) {
       throw err;
     }
@@ -51,7 +52,6 @@ const main = async (page, text) => {
 
   // download
   const buttons = await page.$$('button[aria-label^="More options for"]')
-
 
   buttons[0].click();
 
@@ -70,6 +70,11 @@ const main = async (page, text) => {
 
   await page.waitForSelector('svg[aria-hidden="true"][data-icon="file-music"]');
   await page.click('svg[aria-hidden="true"][data-icon="file-music"]');
+
+  // remove the prompt from the prompts file
+  const fileContents = fs.readFileSync(process.argv[2], "utf-8").replace(text+"\n", "")
+  console.log(fileContents)
+  fs.writeFileSync(process.argv[2], fileContents)
 
 }
 
@@ -93,7 +98,9 @@ const init = async (prompts) => {
     console.log(`Downloaded: ${prompts.at(line)}`)
   }
 
-  // await browser.close();
+  console.log("Successfully generated songs corresponding to all the prompts!")
+
+  await browser.close();
 }
 
 // checking args
