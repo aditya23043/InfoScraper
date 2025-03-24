@@ -28,8 +28,30 @@ const main = async (page, text) => {
 
   // wait for atleast one "three dots" button to load
   await page.waitForSelector('button[aria-label^="More options for"]')
+  
+  console.log("done generating")
+  
+  // write log
+  const h4_arr = await page.evaluate(() => {
+    return Array.from(document.querySelectorAll('h4.text-primary.truncate.transition-colors')).map(h4 => h4.textContent)
+  })
+  console.log(h4_arr.at(0), h4_arr.at(1))
+  console.log(h4_arr.length, song_names.length)
 
+  if (h4_arr === song_names) {
+    console.log("no new songs!")
+    return;
+  }
+
+  fs.appendFile("src/output", `Prompt: ${text}\n  Song 1: ${h4_arr.at(0)}\n  Song 2: ${h4_arr.at(1)}\n\n`, (err) => {
+    if (err) {
+      throw err;
+    }
+  })
+
+  // download
   const buttons = await page.$$('button[aria-label^="More options for"]')
+
 
   buttons[0].click();
 
@@ -62,10 +84,16 @@ const init = async (prompts) => {
   const page = (await browser.pages()).at(0);
   await page.goto("https://riffusion.com");
 
+  song_names = song_names.concat(await page.evaluate(() => {
+    return Array.from(document.querySelectorAll('h4[class="text-primary truncate transition-colors hover:underline max-w-full"]')).map(h4 => h4.textContent)
+  }))
+
   for (const line in prompts) {
     await main(page, prompts.at(line));
     console.log(`Downloaded: ${prompts.at(line)}`)
   }
+
+  // await browser.close();
 }
 
 // checking args
@@ -82,3 +110,5 @@ fs.readFile(process.argv[2], 'utf-8', (err, data) => {
     init(data.trim().split("\n"))
   }
 });
+
+let song_names = []
