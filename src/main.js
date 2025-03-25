@@ -8,6 +8,8 @@ const main = async (page, text, count=1) => {
     return;
   }
 
+  await page.waitForSelector('h4.text-primary.truncate.transition-colors')
+
   let song_names_prev = await page.evaluate(() => {
     return Array.from(document.querySelectorAll('h4.text-primary.truncate.transition-colors')).map(h4 => h4.textContent)
   })
@@ -30,13 +32,21 @@ const main = async (page, text, count=1) => {
   await page.click('button[data-sentry-element="Button"]')
 
   // wait for the songs to generate
+  try {
+
   await page.waitForFunction(() => {
     const h4Elements = Array.from(document.querySelectorAll('h4'));
     return h4Elements.every(h4 => !h4.textContent.trim().startsWith('Generating'));
   }, {timeout: 100000});
+  } catch (error) {
+    console.log("\nSong generation took too long!")
+    return;
+  }
 
   // wait for atleast one "three dots" button to load
   await page.waitForSelector('button[aria-label^="More options for"]')
+
+  await page.waitForSelector('h4.text-primary.truncate.transition-colors')
   
   // write log
   const h4_arr = await page.evaluate(() => {
@@ -79,10 +89,9 @@ const main = async (page, text, count=1) => {
 
   // remove the prompt from the prompts file
   const fileContents = fs.readFileSync(process.argv[2], "utf-8").replace(text+"\n", "")
-  console.log(fileContents)
   fs.writeFileSync(process.argv[2], fileContents)
 
-  console.log(`Downloaded: ${text}`)
+  console.log(`\nDownloaded: ${text}\n`)
 
 }
 
@@ -101,8 +110,6 @@ const init = async (prompts) => {
 
   const page = (await browser.pages()).at(0);
   await page.goto("https://riffusion.com");
-
-  await page.waitForSelector('h4.text-primary.truncate.transition-colors')
 
   for (const line in prompts) {
     await main(page, prompts.at(line));
