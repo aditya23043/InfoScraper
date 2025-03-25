@@ -1,7 +1,12 @@
 import puppeteer from "puppeteer";
 import fs from "fs"
 
-const main = async (page, text) => {
+const main = async (page, text, count=1) => {
+
+  if (count > 5) {
+    console.log("Number of threshold for tries crossed i.e. 5")
+    return;
+  }
 
   let song_names_prev = await page.evaluate(() => {
     return Array.from(document.querySelectorAll('h4.text-primary.truncate.transition-colors')).map(h4 => h4.textContent)
@@ -33,23 +38,19 @@ const main = async (page, text) => {
   // wait for atleast one "three dots" button to load
   await page.waitForSelector('button[aria-label^="More options for"]')
   
-  console.log("done generating")
-  
   // write log
   const h4_arr = await page.evaluate(() => {
     return Array.from(document.querySelectorAll('h4.text-primary.truncate.transition-colors')).map(h4 => h4.textContent)
   })
-  console.log(h4_arr.at(0), h4_arr.at(1))
-  console.log(h4_arr.length, song_names_prev.length)
 
-  if (h4_arr === song_names_prev) {
-    console.log("no new songs!")
-    process.exit()
+  if (h4_arr.at(0) == song_names_prev.at(0) || h4_arr.at(1) == song_names_prev.at(1)) {
+    console.log("ERROR while generating songs for prompt: " + text + "\nTrying again! Try #"+(count+1))
+    await main(page, text, count+1);
     return;
   }
 
   const datetime = new Date(Date.now());
-  fs.appendFile("src/output", `Prompt: ${text}\t(${datetime.getDate()}/${datetime.getUTCMonth()+1}/${datetime.getFullYear()} | ${datetime.getHours()}:${datetime.getMinutes()}:${datetime.getSeconds()})\n  Song 1: ${h4_arr.at(0)}\n  Song 2: ${h4_arr.at(1)}\n\n`, (err) => {
+  fs.appendFile(process.argv[3], `Prompt: ${text}    (${datetime.getDate()}/${datetime.getUTCMonth()+1}/${datetime.getFullYear()} | ${datetime.getHours()}:${datetime.getMinutes()}:${datetime.getSeconds()})\n  Song 1: ${h4_arr.at(0)}\n  Song 2: ${h4_arr.at(1)}\n\n`, (err) => {
     if (err) {
       throw err;
     }
@@ -81,9 +82,16 @@ const main = async (page, text) => {
   console.log(fileContents)
   fs.writeFileSync(process.argv[2], fileContents)
 
+    console.log(`Downloaded: ${prompts.at(line)}`)
+
 }
 
 const init = async (prompts) => {
+
+  if (prompts.length == 1 && prompts[0] == '') {
+    console.log("Empty prompts file!")
+    return;
+  }
 
   const browser = await puppeteer.launch({
     browser: "firefox",
@@ -98,11 +106,10 @@ const init = async (prompts) => {
 
   for (const line in prompts) {
     await main(page, prompts.at(line));
-    console.log(`Downloaded: ${prompts.at(line)}`)
   }
 
-  console.log("Waiting for the last prompt's songs to complete downloading (5s)")
-  await new Promise((resolve) => setTimeout(resolve, 5000))
+  console.log("Waiting for the last prompt's songs to complete downloading (10s)")
+  await new Promise((resolve) => setTimeout(resolve, 10000))
 
   console.log("\nSuccessfully generated songs corresponding to all the prompts!")
 
