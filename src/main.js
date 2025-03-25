@@ -3,6 +3,10 @@ import fs from "fs"
 
 const main = async (page, text) => {
 
+  let song_names_prev = await page.evaluate(() => {
+    return Array.from(document.querySelectorAll('h4.text-primary.truncate.transition-colors')).map(h4 => h4.textContent)
+  })
+
   await page.waitForSelector('div.flex.h-12.w-full.min-w-0.cursor-pointer.items-center.gap-1');
   await page.click('div.flex.h-12.w-full.min-w-0.cursor-pointer.items-center.gap-1');
 
@@ -36,10 +40,11 @@ const main = async (page, text) => {
     return Array.from(document.querySelectorAll('h4.text-primary.truncate.transition-colors')).map(h4 => h4.textContent)
   })
   console.log(h4_arr.at(0), h4_arr.at(1))
-  console.log(h4_arr.length, song_names.length)
+  console.log(h4_arr.length, song_names_prev.length)
 
-  if (h4_arr === song_names) {
+  if (h4_arr === song_names_prev) {
     console.log("no new songs!")
+    process.exit()
     return;
   }
 
@@ -89,23 +94,24 @@ const init = async (prompts) => {
   const page = (await browser.pages()).at(0);
   await page.goto("https://riffusion.com");
 
-  song_names = song_names.concat(await page.evaluate(() => {
-    return Array.from(document.querySelectorAll('h4[class="text-primary truncate transition-colors hover:underline max-w-full"]')).map(h4 => h4.textContent)
-  }))
+  await page.waitForSelector('h4.text-primary.truncate.transition-colors')
 
   for (const line in prompts) {
     await main(page, prompts.at(line));
     console.log(`Downloaded: ${prompts.at(line)}`)
   }
 
-  console.log("Successfully generated songs corresponding to all the prompts!")
+  console.log("Waiting for the last prompt's songs to complete downloading (5s)")
+  await new Promise((resolve) => setTimeout(resolve, 5000))
+
+  console.log("\nSuccessfully generated songs corresponding to all the prompts!")
 
   await browser.close();
 }
 
 // checking args
-if (process.argv.length != 3) {
-  console.error("ERROR!\nUsage: node src/main.js <path/to/prompts>")
+if (process.argv.length != 4) {
+  console.error("ERROR!\nUsage: node src/main.js <path/to/prompts> <path/to/log_file>")
   process.exit(1)
 }
 
@@ -117,5 +123,3 @@ fs.readFile(process.argv[2], 'utf-8', (err, data) => {
     init(data.trim().split("\n"))
   }
 });
-
-let song_names = []
