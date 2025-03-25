@@ -82,7 +82,7 @@ const main = async (page, text, count=1) => {
   console.log(fileContents)
   fs.writeFileSync(process.argv[2], fileContents)
 
-    console.log(`Downloaded: ${prompts.at(line)}`)
+  console.log(`Downloaded: ${text}`)
 
 }
 
