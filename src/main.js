@@ -33,11 +33,10 @@ const main = async (page, text, count=1) => {
 
   // wait for the songs to generate
   try {
-
-  await page.waitForFunction(() => {
-    const h4Elements = Array.from(document.querySelectorAll('h4'));
-    return h4Elements.every(h4 => !h4.textContent.trim().startsWith('Generating'));
-  }, {timeout: 100000});
+    await page.waitForFunction(() => {
+      const h4Elements = Array.from(document.querySelectorAll('h4'));
+      return h4Elements.every(h4 => !h4.textContent.trim().startsWith('Generating'));
+    }, {timeout: 100000});
   } catch (error) {
     console.log("\nSong generation took too long!")
     return;
@@ -52,6 +51,9 @@ const main = async (page, text, count=1) => {
   const h4_arr = await page.evaluate(() => {
     return Array.from(document.querySelectorAll('h4.text-primary.truncate.transition-colors')).map(h4 => h4.textContent)
   })
+
+  console.log(h4_arr[0], h4_arr[1])
+  console.log(song_names_prev[0], song_names_prev[1])
 
   if (h4_arr.at(0) == song_names_prev.at(0) || h4_arr.at(1) == song_names_prev.at(1)) {
     console.log("ERROR while generating songs for prompt: " + text + "\nTrying again! Try #"+(count+1))
@@ -105,11 +107,12 @@ const init = async (prompts) => {
   const browser = await puppeteer.launch({
     browser: "firefox",
     headless: false,
-    userDataDir: "/home/adi/.mozilla/firefox/uqt3lbms.default-release",
+    userDataDir: "/home/adi/.mozilla/firefox/lyh5xzgn.default-release",
   });
 
   const page = (await browser.pages()).at(0);
-  await page.goto("https://riffusion.com");
+  // await page.goto("https://riffusion.com");
+  await page.goto("https://www.riffusion.com/library/my-songs");
 
   for (const line in prompts) {
     await main(page, prompts.at(line));
