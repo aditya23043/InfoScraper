@@ -31,6 +31,8 @@ const main = async (page, text, count=1) => {
   await page.waitForSelector('button[data-sentry-element="Button"]')
   await page.click('button[data-sentry-element="Button"]')
 
+  console.log("generating...")
+
   // wait for the songs to generate
   try {
     await page.waitForFunction(() => {
@@ -106,8 +108,8 @@ const init = async (prompts) => {
 
   const browser = await puppeteer.launch({
     browser: "firefox",
-    headless: false,
-    userDataDir: "/home/adi/.mozilla/firefox/uqt3lbms.default-release",
+    headless: true,
+    userDataDir: "/home/adi/.mozilla/firefox/lyh5xzgn.default-release",
   });
 
   const page = (await browser.pages()).at(0);
