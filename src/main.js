@@ -28,8 +28,8 @@ const main = async (page, text, count=1) => {
 
   await page.type('textarea[aria-label="Prompt for a song"]', text)
 
-  await page.waitForSelector('button[data-sentry-element="Button"]')
-  await page.click('button[data-sentry-element="Button"]')
+  await page.waitForSelector('button[data-sentry-element="Button"][data-sentry-source-file="Create.tsx"]')
+  await page.click('button[data-sentry-element="Button"][data-sentry-source-file="Create.tsx"]')
 
   console.log("generating...")
 
@@ -108,8 +108,8 @@ const init = async (prompts) => {
 
   const browser = await puppeteer.launch({
     browser: "firefox",
-    headless: true,
-    userDataDir: "/home/adi/.mozilla/firefox/lyh5xzgn.default-release",
+    headless: false,
+    userDataDir: "/home/adi/.mozilla/firefox/8d4q8916.riffusion"
   });
 
   const page = (await browser.pages()).at(0);
