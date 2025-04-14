@@ -3,11 +3,15 @@ import fs from "fs"
 
 const main = async (page, text, count=1) => {
 
-  if (count > 5) {
-    console.log("Number of threshold for tries crossed i.e. 5")
+  if (count > 3) {
+    console.log("Number of threshold for tries crossed i.e. 3")
+    await page.screenshot({
+      path: "log.png",
+    })
     return;
   }
 
+  page.screenshot({path: "debug.png"})
   await page.waitForSelector('h4.text-primary.truncate.transition-colors')
 
   let song_names_prev = await page.evaluate(() => {
@@ -41,6 +45,9 @@ const main = async (page, text, count=1) => {
     }, {timeout: 100000});
   } catch (error) {
     console.log("\nSong generation took too long!")
+    await page.screenshot({
+      path: "took_too_long.png",
+    })
     return;
   }
 
@@ -58,6 +65,14 @@ const main = async (page, text, count=1) => {
   console.log(song_names_prev[0], song_names_prev[1])
 
   if (h4_arr.at(0) == song_names_prev.at(0) || h4_arr.at(1) == song_names_prev.at(1)) {
+    if (await page.$('div[data-sentry-source-file="toast.tsx"][class="text-secondary text-sm leading-4"]')) {
+      await page.screenshot({
+        path: "timeout.png",
+      })
+      console.log("20 min timeout!")
+      process.exit()
+      // await new Promise((resolve) => setTimeout(resolve, 20000*60))
+    }
     console.log("ERROR while generating songs for prompt: " + text + "\nTrying again! Try #"+(count+1))
     await main(page, text, count+1);
     return;
