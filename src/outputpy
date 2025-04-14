@@ -1,0 +1,32 @@
+Prompt: Create an english song inspired by the song 'Peer Gynt Suite No. 1, Op. 46: Morning Mood - Arr. for Piano', in the style of Turkish.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'P.S. I Love You', in the style of Blues.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'Purple - Remastered', in the style of Pop.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song '24 Hours at a Time', in the style of Folk.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'Take Me or Leave Me', in the style of Post-Rock.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'Straight Lines', in the style of Jazz: Vocal.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'Swanee River Rock (Talkin' 'Bout That River)', in the style of Drone.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'Travelin' Blues', in the style of Indie-Rock.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'Prelude To A Kiss', in the style of Afrobeat.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'Too Close for Comfort', in the style of African.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'Poor Butterfly - Rudy Van Gelder Edition/1999 Remaster/24-Bit Mastering', in the style of Singer-Songwriter.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'Forty Shades of Green', in the style of Unclassifiable.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'Heaven Knows', in the style of Easy Listening: Vocal.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'Cuff Link - Remastered 1993', in the style of Celtic.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'SOS (feat. Aloe Blacc)', in the style of Minimal Electronic.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'Ghoul View Commercial', in the style of Sound Collage.
+	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
