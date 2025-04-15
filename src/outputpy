@@ -30,3 +30,5 @@ Prompt: Create an english song inspired by the song 'SOS (feat. Aloe Blacc)', in
 	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
 Prompt: Create an english song inspired by the song 'Ghoul View Commercial', in the style of Sound Collage.
 	(<attribute 'day' of 'datetime.date' objects>/<attribute 'month' of 'datetime.date' objects>/<attribute 'year' of 'datetime.date' objects> | <attribute 'hour' of 'datetime.time' objects>:<attribute 'minute' of 'datetime.time' objects>:<attribute 'second' of 'datetime.time' objects>
+Prompt: Create an english song inspired by the song 'O.K. - Bonus Track', in the style of Trip-Hop.
+	(15/4/2025 | 13:34:34

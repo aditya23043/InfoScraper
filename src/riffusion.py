@@ -47,6 +47,9 @@ def foo(prompt):
                         print("line removed!")
             print("Prompt didn't meet content guidelines: ", prompt)
             return;
+        elif 'heavy traffic' in text:
+            time.sleep(20*60)
+            return;
         elif 'Generating' in text:
             time.sleep(1)
         else:
@@ -75,7 +78,7 @@ def foo(prompt):
                 f.write(line)
 
     with open(sys.argv[2], 'a') as f:
-        f.write("Prompt: " + prompt + "\t(" + str(now.day) + "/" + str(now.month) + "/" + str(now.year) + " | " + str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "\n")
+        f.write("Prompt: " + prompt + "\t(" + str(now.day) + "/" + str(now.month) + "/" + str(now.year) + " | " + str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + ")\n")
 
 
 if (len(sys.argv) != 3):
