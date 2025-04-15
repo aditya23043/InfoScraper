@@ -13,17 +13,17 @@ def foo(prompt):
 
     temp = []
 
-    pyautogui.click(500, 100)
+    pyautogui.click(707, 88)
     time.sleep(0.1)
-    pyautogui.click(437, 112)
+    pyautogui.click(617, 94)
     time.sleep(0.1)
-    pyautogui.click(437, 170)
+    pyautogui.click(617, 133)
     time.sleep(0.1)
     pyautogui.hotkey("ctrl", "a")
     pyautogui.press("backspace")
 
     pyautogui.write(prompt)
-    time.sleep(2)
+    time.sleep(1)
 
     while(True):
         text = ""
@@ -32,10 +32,13 @@ def foo(prompt):
             screenshot = Image.open("/tmp/screen.png")
             text = pytesseract.image_to_string(screenshot)
         elif(platform.system() == "Windows"):
-            pyautogui.screenshot()
+            screenshot = pyautogui.screenshot()
             text = pytesseract.image_to_string(screenshot)
 
-        if 'content guidelines' in text:
+        if 'heavy traffic' in text:
+            time.sleep(60*5)
+            return;
+        elif 'content guidelines' in text:
             with open(sys.argv[1], 'r') as f:
                 temp = f.readlines()
             with open(sys.argv[1], 'w') as f:
@@ -47,28 +50,26 @@ def foo(prompt):
                         print("line removed!")
             print("Prompt didn't meet content guidelines: ", prompt)
             return;
-        elif 'heavy traffic' in text:
-            time.sleep(20*60)
-            return;
-        elif 'Generating' in text:
+
+        if 'Generating' in text:
             time.sleep(1)
         else:
-            print()
+            os.system("notify-send -t 0 something")
             break;
 
     time.sleep(0.5)
-    pyautogui.click(1441, 327)
+    pyautogui.click(1285, 238)
     time.sleep(0.5)
-    pyautogui.click(1265, 748)
+    pyautogui.click(1174, 523)
     time.sleep(0.5)
-    pyautogui.click(1481, 748)
+    pyautogui.click(1315, 523)
 
     time.sleep(0.5)
-    pyautogui.click(1441, 446)
+    pyautogui.click(1285, 319)
     time.sleep(0.5)
-    pyautogui.click(1265, 864)
+    pyautogui.click(1164, 601)
     time.sleep(0.5)
-    pyautogui.click(1483, 864)
+    pyautogui.click(1318, 601)
 
     with open(sys.argv[1], 'r') as f:
         temp = f.readlines()
@@ -89,7 +90,7 @@ prompts = []
 with open(sys.argv[1], 'r') as f:
     prompts = f.readlines()
 
-os.system("firefox --new-window https://riffusion.com/library/my-songs");
+os.system("firefox --new-window https://riffusion.com/library/my-songs &");
 
 while(True):
     text = ""
