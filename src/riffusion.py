@@ -45,7 +45,6 @@ def foo(prompt):
                 for line in temp:
                     if line != prompt:
                         f.write(line)
-                        print(line, prompt)
                     elif line == prompt:
                         print("line removed!")
             print("Prompt didn't meet content guidelines: ", prompt)
