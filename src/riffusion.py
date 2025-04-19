@@ -13,11 +13,11 @@ def foo(prompt):
 
     temp = []
 
-    pyautogui.click(527, 110)
+    pyautogui.click(677, 87)
     time.sleep(0.1)
-    pyautogui.click(436, 113)
+    pyautogui.click(615, 100)
     time.sleep(0.1)
-    pyautogui.click(452, 176)
+    pyautogui.click(624, 132)
     time.sleep(0.1)
     pyautogui.hotkey("ctrl", "a")
     pyautogui.press("backspace")
@@ -67,18 +67,18 @@ def foo(prompt):
             break;
 
     time.sleep(0.5)
-    pyautogui.click(1439, 331)
+    pyautogui.click(1288, 241)
     time.sleep(0.5)
-    pyautogui.click(1262, 738)
+    pyautogui.click(1156, 522)
     time.sleep(0.5)
-    pyautogui.click(1475, 751)
+    pyautogui.click(1312, 521)
 
     time.sleep(0.5)
-    pyautogui.click(1440, 446)
+    pyautogui.click(1285, 318)
     time.sleep(0.5)
-    pyautogui.click(1244, 866)
+    pyautogui.click(1168, 603)
     time.sleep(0.5)
-    pyautogui.click(1465, 872)
+    pyautogui.click(1312, 603)
 
     with open(sys.argv[1], 'r') as f:
         temp = f.readlines()
@@ -108,7 +108,7 @@ while(True):
         screenshot = Image.open("/tmp/screen.png")
         text = pytesseract.image_to_string(screenshot)
     elif(platform.system() == "Windows"):
-        pyautogui.screenshot()
+        screenshot = pyautogui.screenshot()
         text = pytesseract.image_to_string(screenshot)
 
     time.sleep(1)
