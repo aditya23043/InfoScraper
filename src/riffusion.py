@@ -13,11 +13,11 @@ def foo(prompt):
 
     temp = []
 
-    pyautogui.click(682, 102)
+    pyautogui.click(527, 110)
     time.sleep(0.1)
-    pyautogui.click(441, 109)
+    pyautogui.click(436, 113)
     time.sleep(0.1)
-    pyautogui.click(469, 175)
+    pyautogui.click(452, 176)
     time.sleep(0.1)
     pyautogui.hotkey("ctrl", "a")
     pyautogui.press("backspace")
@@ -62,23 +62,23 @@ def foo(prompt):
             text = pytesseract.image_to_string(screenshot)
 
         if 'Generating' in text:
-            time.sleep(5)
+            time.sleep(1)
         else:
             break;
 
     time.sleep(0.5)
-    pyautogui.click(1445, 327)
+    pyautogui.click(1439, 331)
     time.sleep(0.5)
-    pyautogui.click(1260, 751)
+    pyautogui.click(1262, 738)
     time.sleep(0.5)
-    pyautogui.click(1472, 749)
+    pyautogui.click(1475, 751)
 
     time.sleep(0.5)
-    pyautogui.click(1438, 445)
+    pyautogui.click(1440, 446)
     time.sleep(0.5)
-    pyautogui.click(1252, 872)
+    pyautogui.click(1244, 866)
     time.sleep(0.5)
-    pyautogui.click(1477, 870)
+    pyautogui.click(1465, 872)
 
     with open(sys.argv[1], 'r') as f:
         temp = f.readlines()
