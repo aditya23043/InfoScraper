@@ -7,8 +7,6 @@ from PIL import Image
 import platform
 from datetime import datetime
 
-now = datetime.now()
-
 def foo(prompt):
 
     temp = []
@@ -23,11 +21,10 @@ def foo(prompt):
     pyautogui.press("backspace")
 
     pyautogui.write(prompt)
-    time.sleep(1)
-
+    time.sleep(4)
     text = ""
     if(platform.system() == "Linux"):
-        os.system("scrot -o /tmp/screen.png")
+        os.system("scrot -o /tmp/screen.png -a 1550,50,400,150")
         screenshot = Image.open("/tmp/screen.png")
         text = pytesseract.image_to_string(screenshot)
     elif(platform.system() == "Windows"):
@@ -35,6 +32,7 @@ def foo(prompt):
         text = pytesseract.image_to_string(screenshot)
 
     if 'heavy traffic' in text:
+        print("yes")
         time.sleep(60*5)
         return;
 
@@ -49,7 +47,6 @@ def foo(prompt):
                     print("line removed!")
         print("Prompt didn't meet content guidelines: ", prompt)
         return;
-
 
     while(True):
         text = ""
@@ -88,6 +85,7 @@ def foo(prompt):
                 f.write(line)
 
     with open(sys.argv[2], 'a') as f:
+        now = datetime.now()
         f.write("Prompt: " + prompt + "\t(" + str(now.day) + "/" + str(now.month) + "/" + str(now.year) + " | " + str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + ")\n")
 
 
@@ -115,6 +113,7 @@ while(True):
     if 'Riffusion' in text:
         break;
 
+time.sleep(5)
 for prompt in prompts:
     foo(prompt)
     time.sleep(1)
