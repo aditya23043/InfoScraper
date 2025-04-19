@@ -13,17 +13,43 @@ def foo(prompt):
 
     temp = []
 
-    pyautogui.click(707, 88)
+    pyautogui.click(682, 102)
     time.sleep(0.1)
-    pyautogui.click(617, 94)
+    pyautogui.click(441, 109)
     time.sleep(0.1)
-    pyautogui.click(617, 133)
+    pyautogui.click(469, 175)
     time.sleep(0.1)
     pyautogui.hotkey("ctrl", "a")
     pyautogui.press("backspace")
 
     pyautogui.write(prompt)
     time.sleep(1)
+
+    text = ""
+    if(platform.system() == "Linux"):
+        os.system("scrot -o /tmp/screen.png")
+        screenshot = Image.open("/tmp/screen.png")
+        text = pytesseract.image_to_string(screenshot)
+    elif(platform.system() == "Windows"):
+        screenshot = pyautogui.screenshot()
+        text = pytesseract.image_to_string(screenshot)
+
+    if 'heavy traffic' in text:
+        time.sleep(60*5)
+        return;
+
+    if 'content guidelines' in text:
+        with open(sys.argv[1], 'r') as f:
+            temp = f.readlines()
+        with open(sys.argv[1], 'w') as f:
+            for line in temp:
+                if line != prompt:
+                    f.write(line)
+                elif line == prompt:
+                    print("line removed!")
+        print("Prompt didn't meet content guidelines: ", prompt)
+        return;
+
 
     while(True):
         text = ""
@@ -35,40 +61,24 @@ def foo(prompt):
             screenshot = pyautogui.screenshot()
             text = pytesseract.image_to_string(screenshot)
 
-        if 'heavy traffic' in text:
-            time.sleep(60*5)
-            return;
-        elif 'content guidelines' in text:
-            with open(sys.argv[1], 'r') as f:
-                temp = f.readlines()
-            with open(sys.argv[1], 'w') as f:
-                for line in temp:
-                    if line != prompt:
-                        f.write(line)
-                    elif line == prompt:
-                        print("line removed!")
-            print("Prompt didn't meet content guidelines: ", prompt)
-            return;
-
         if 'Generating' in text:
-            time.sleep(1)
+            time.sleep(5)
         else:
-            os.system("notify-send -t 0 something")
             break;
 
     time.sleep(0.5)
-    pyautogui.click(1285, 238)
+    pyautogui.click(1445, 327)
     time.sleep(0.5)
-    pyautogui.click(1174, 523)
+    pyautogui.click(1260, 751)
     time.sleep(0.5)
-    pyautogui.click(1315, 523)
+    pyautogui.click(1472, 749)
 
     time.sleep(0.5)
-    pyautogui.click(1285, 319)
+    pyautogui.click(1438, 445)
     time.sleep(0.5)
-    pyautogui.click(1164, 601)
+    pyautogui.click(1252, 872)
     time.sleep(0.5)
-    pyautogui.click(1318, 601)
+    pyautogui.click(1477, 870)
 
     with open(sys.argv[1], 'r') as f:
         temp = f.readlines()
