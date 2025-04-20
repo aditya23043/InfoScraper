@@ -63,9 +63,11 @@ def foo(prompt):
         else:
             break;
 
+    time.sleep(0.5)
+
     if(platform.system() == "Linux"):
-        os.system("scrot -o /tmp/screen.png -a 1550,50,400,150")
-        screenshot = Image.open("/tmp/screen.png")
+        os.system("scrot -o /tmp/screen2.png -a 1550,50,400,150")
+        screenshot = Image.open("/tmp/screen2.png")
         text = pytesseract.image_to_string(screenshot)
     elif(platform.system() == "Windows"):
         screenshot = pyautogui.screenshot()
