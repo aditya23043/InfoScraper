@@ -21,32 +21,32 @@ def foo(prompt):
     pyautogui.press("backspace")
 
     pyautogui.write(prompt)
-    time.sleep(4)
+    time.sleep(1)
     text = ""
-    if(platform.system() == "Linux"):
-        os.system("scrot -o /tmp/screen.png -a 1550,50,400,150")
-        screenshot = Image.open("/tmp/screen.png")
-        text = pytesseract.image_to_string(screenshot)
-    elif(platform.system() == "Windows"):
-        screenshot = pyautogui.screenshot()
-        text = pytesseract.image_to_string(screenshot)
+    # if(platform.system() == "Linux"):
+    #     os.system("scrot -o /tmp/screen.png -a 1550,50,400,150")
+    #     screenshot = Image.open("/tmp/screen.png")
+    #     text = pytesseract.image_to_string(screenshot)
+    # elif(platform.system() == "Windows"):
+    #     screenshot = pyautogui.screenshot()
+    #     text = pytesseract.image_to_string(screenshot)
 
-    if 'heavy traffic' in text:
-        print("yes")
-        time.sleep(60*5)
-        return;
+    # if 'heavy traffic' in text:
+    #     print("yes")
+    #     time.sleep(60*5)
+    #     return;
 
-    if 'content guidelines' in text:
-        with open(sys.argv[1], 'r') as f:
-            temp = f.readlines()
-        with open(sys.argv[1], 'w') as f:
-            for line in temp:
-                if line != prompt:
-                    f.write(line)
-                elif line == prompt:
-                    print("line removed!")
-        print("Prompt didn't meet content guidelines: ", prompt)
-        return;
+    # if 'content guidelines' in text:
+    #     with open(sys.argv[1], 'r') as f:
+    #         temp = f.readlines()
+    #     with open(sys.argv[1], 'w') as f:
+    #         for line in temp:
+    #             if line != prompt:
+    #                 f.write(line)
+    #             elif line == prompt:
+    #                 print("line removed!")
+    #     print("Prompt didn't meet content guidelines: ", prompt)
+    #     return;
 
     while(True):
         text = ""
@@ -62,6 +62,31 @@ def foo(prompt):
             time.sleep(1)
         else:
             break;
+
+    if(platform.system() == "Linux"):
+        os.system("scrot -o /tmp/screen.png -a 1550,50,400,150")
+        screenshot = Image.open("/tmp/screen.png")
+        text = pytesseract.image_to_string(screenshot)
+    elif(platform.system() == "Windows"):
+        screenshot = pyautogui.screenshot()
+        text = pytesseract.image_to_string(screenshot)
+
+    if 'heavy traffic' in text:
+        time.sleep(60*5)
+        return;
+
+    if 'content guidelines' in text:
+        with open(sys.argv[1], 'r') as f:
+            temp = f.readlines()
+        with open(sys.argv[1], 'w') as f:
+            for line in temp:
+                if line != prompt:
+                    f.write(line)
+                elif line == prompt:
+                    print("line removed!")
+        print("Prompt didn't meet content guidelines: ", prompt)
+        return;
+
 
     time.sleep(0.5)
     pyautogui.click(1288, 241)
